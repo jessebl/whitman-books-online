@@ -1,0 +1,11 @@
+- name: EPEL installed
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+  become: yes
+
+- name: packages installed
+  yum:
+    name:
+      - nginx
+      - certbot-nginx
+  become: yes

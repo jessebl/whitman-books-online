@@ -1,0 +1,23 @@
+---
+- name: packages installed
+  include_tasks: packages.yml
+
+- name: nginx conf
+  template:
+    src: nginx.conf
+    dest: "{{ nginx_conf }}"
+  become: yes
+  notify: restart nginx
+
+- name: sites_enabled directory exists
+  file:
+   path: "{{ sites_enabled }}"
+   state: directory
+  become: yes
+
+- name: frontend added to sites_enabled
+  template:
+    src: sites-enabled/frontend.j2
+    dest: "{{ sites_enabled }}/frontend"
+  become: yes
+  notify: restart nginx
