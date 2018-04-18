@@ -21,3 +21,13 @@
     dest: "{{ sites_enabled }}/frontend"
   become: yes
   notify: restart nginx
+
+# Prevent "Permission denied" nginx errors when proxying frontend
+# by changing selinux policy
+- name: set selinux policy
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+  when: ansible_selinux["status"] == "enabled"
+  become: yes
