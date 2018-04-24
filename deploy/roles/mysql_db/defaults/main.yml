@@ -1,0 +1,8 @@
+---
+backend_user: backend
+app_name: wbo
+app_directory: /var/lib/{{ app_name }}
+repo: https://github.com/whitman-books-online/whitman-books-online
+backend_version: master
+mysql_db_name: wbo
+mysql_backend_user_name: backend

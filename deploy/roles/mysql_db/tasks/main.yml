@@ -1,0 +1,11 @@
+---
+# NOTE: assumes the presence of a ~/.my.cnf file with MySQL credentials
+- name: Install packages
+  include_tasks: packages.yml
+
+- name: MySQL started
+  systemd:
+    name: mariadb.service
+    state: started
+    enabled: yes
+  become: yes

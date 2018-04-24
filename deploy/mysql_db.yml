@@ -1,0 +1,4 @@
+---
+- hosts: mysql_db
+  roles:
+    - mysql_db
