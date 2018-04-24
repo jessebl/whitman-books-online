@@ -9,3 +9,23 @@
     state: started
     enabled: yes
   become: yes
+
+- name: MySQL backend user
+  mysql_user:
+    name: "{{ mysql_backend_user_name }}"
+    password: ''
+    state: present
+    host: localhost
+    update_password: always
+    priv: "{{ mysql_db_name }}.*:ALL"
+  become: yes
+
+- name: wbo database
+  mysql_db:
+    name: "{{ mysql_db_name }}"
+    state: present
+    encoding: utf8
+    login_user: "{{ mysql_backend_user_name }}"
+    login_host: localhost
+  become: yes
+  become_user: backend

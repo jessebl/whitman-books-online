@@ -8,4 +8,5 @@
     name:
       - mariadb-server
       - sudo
+      - MySQL-python
   become: yes
