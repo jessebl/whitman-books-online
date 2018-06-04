@@ -152,3 +152,17 @@ def google_tok_mismatch_headers(google_tok, headers):
         return {"message":  str(google_tok) + " is not authorized"}, 403
     else:
         return False
+
+def authorized_user(method):
+    """Provide decorator to require a valid JWT token for a flask method
+    """
+    def auth_test():
+        nonlocal method
+        google_tok = method.google_tok
+        request_headers = method.request.headers
+        auth_error = google_tok_mismatch_headers(google_tok, request_headers)
+        if auth_error:
+            return auth_error
+        else:
+            return method
+    return auth_test

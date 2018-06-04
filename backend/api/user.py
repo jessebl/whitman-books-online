@@ -209,6 +209,7 @@ class User(Resource):
             return {'google_tok': user.google_tok, 'imageURL': user.imageURL, "email": user.email, "name": user.name, "givenName": user.givenName, 'familyName': user.familyName, "listings": listing_IDs}
         return {"message": "user not found"}, 404
 
+    @auth.authorized_user
     def post(self, google_tok):
         """Posts a user to the database.
 
@@ -218,8 +219,6 @@ class User(Resource):
         Returns:
                 message: What happened with the post call.
         """
-        auth_error = auth.google_tok_mismatch_headers(google_tok, request.headers)
-        if auth_error: return auth_error
         data = User.parser.parse_args()
         print("hello")
         if UserModel.find_by_google_tok(google_tok):
